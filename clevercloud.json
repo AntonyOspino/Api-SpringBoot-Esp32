@@ -1,10 +1,8 @@
 {
   "build": {
-    "command": "mvn clean package",
-    "type": "maven"
-  },
-  "start": {
-    "command": "java -jar target/conexionesp32-0.0.1-SNAPSHOT.jar",
-    "type": "java"
+    "maven": {
+      "goal": "clean package"
+    }
   }
 }
+
