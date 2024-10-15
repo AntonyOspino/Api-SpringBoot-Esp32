@@ -34,26 +34,32 @@ public class UsuarioControllerPublico {
 
     @PostMapping("/login")
     public ResponseEntity<?> validarUsuario(@RequestBody LoginRequest request) {
-        // Obtener usuario por correo electrónico y contraseña
-        Optional<Usuarios> usuario = usuariosService.validarCredenciales(request);
-        if (usuario.isPresent()) {
-            String nombre = usuario.get().getNombreUsuario();
-            try{
-                mqttService.sendLoginMessage(nombre);
-            }catch (Exception e){
-                e.getMessage();
+        try{
+            // Obtener usuario por correo electrónico y contraseña
+            Optional<Usuarios> usuario = usuariosService.validarCredenciales(request);
+            if (usuario.isPresent()) {
+                String nombre = usuario.get().getNombreUsuario();
+                try{
+                    mqttService.sendLoginMessage(nombre);
+                }catch (Exception e){
+                    e.getMessage();
+                }
+
+                inicioSesionService.registrarInicioSesion(usuario.get());
+
+                // Responder al cliente con el nombre y token
+                Map<String, Object> response = new HashMap<>();
+                response.put("name", nombre);
+                response.put("token", token.getToken());
+
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
             }
-
-            inicioSesionService.registrarInicioSesion(usuario.get());
-
-            // Responder al cliente con el nombre y token
-            Map<String, Object> response = new HashMap<>();
-            response.put("name", nombre);
-            response.put("token", token.getToken());
-
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al procesar la solicitud: " + e.getMessage());
         }
+
     }
 }
