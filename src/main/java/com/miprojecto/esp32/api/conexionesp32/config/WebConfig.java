@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://antonyospino.github.io") // Cambia esto a tu URL de producción
+                .allowedOrigins("https://antonyospino.github.io", "192.168.1.63") // Cambia esto a tu URL de producción
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Permite métodos específicos
                 .allowedHeaders("Authorization", "Content-Type") // Permite el header Authorization y Content-Type
                 .exposedHeaders("Authorization"); // Expone el header Authorization en la respuesta
