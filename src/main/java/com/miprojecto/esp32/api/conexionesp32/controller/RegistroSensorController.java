@@ -57,6 +57,12 @@ public class RegistroSensorController {
                     .body("Error al guardar el registro del sensor: " + e.getMessage());
         }
     }
+
+    // Endpoint para obtener los últimos 5 registros de la tabla sensor
+    @GetMapping("/ultimos5")
+    public List<RegistrosSensor> obtenerUltimos5Registros() {
+        return registrosSensorService.obtenerUltimos5RegistrosSensor();
+    }
 }
 
 

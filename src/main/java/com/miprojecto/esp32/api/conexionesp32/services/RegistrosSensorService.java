@@ -55,4 +55,9 @@ public class RegistrosSensorService {
         return false;
     }
 
+    // Método que devuelve los últimos 5 registros de la tabla sensor
+    public List<RegistrosSensor> obtenerUltimos5RegistrosSensor() {
+        return registroSensorRepository.findTop5ByOrderByIdRegistroDesc();
+    }
+
 }
