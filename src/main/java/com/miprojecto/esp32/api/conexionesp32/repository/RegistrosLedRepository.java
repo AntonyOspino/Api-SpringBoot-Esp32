@@ -12,6 +12,5 @@ public interface RegistrosLedRepository extends JpaRepository<RegistrosLed, Inte
 
     RegistrosLed findTopByOrderByFechaHoraDesc();
 
-    //@Query(value = "SELECT r FROM RegistroLed r ORDER BY r.id DESC LIMIT 5")
-    //List<RegistrosLed> findTop5ByOrderByIdDesc();
+    List<RegistrosLed> findTop5ByOrderByIdRegistroDesc();
 }
