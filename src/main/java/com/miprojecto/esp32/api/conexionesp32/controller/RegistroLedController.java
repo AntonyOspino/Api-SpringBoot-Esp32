@@ -110,4 +110,9 @@ public class RegistroLedController {
         }
         return ResponseEntity.ok(ultimoRegistro.getValorLed());
     }
+
+    @GetMapping("/ultimos5")
+    public List<RegistrosLed> obtenerUltimos5Registros() {
+        return registrosLedService.obtenerUltimos5Registros();
+    }
 }

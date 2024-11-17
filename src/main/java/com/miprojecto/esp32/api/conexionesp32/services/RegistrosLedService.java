@@ -60,4 +60,8 @@ public class RegistrosLedService {
     public RegistrosLed obtenerUltimoRegistroLed() {
         return registrosLedRepository.findTopByOrderByFechaHoraDesc();
     }
+
+    public List<RegistrosLed> obtenerUltimos5Registros() {
+        return registrosLedRepository.findTop5ByOrderByIdDesc();
+    }
 }
