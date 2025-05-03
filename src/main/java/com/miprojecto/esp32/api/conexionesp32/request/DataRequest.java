@@ -8,5 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DataRequest {
-    private String estado;
+    private String Estado;
+
+    public String getEstado() {
+        return this.Estado;
+    }
 }
